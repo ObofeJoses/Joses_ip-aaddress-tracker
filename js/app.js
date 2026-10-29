@@ -19,11 +19,18 @@ const markerIcon = L.icon({
 
 const marker = L.marker(DEFAULT_COORDS, { icon: markerIcon }).addTo(map);
 /* ---------- API ---------- */
+const IPV4 = /^(?:(?:25[0-5]|2[0-4]\d|1?\d?\d)\.){3}(?:25[0-5]|2[0-4]\d|1?\d?\d)$/;
+const IPV6 = /^[0-9a-f:]+$/i;
+
+function isIp(value) {
+  return IPV4.test(value) || (value.includes(":") && IPV6.test(value));
+}
+
 async function getIpData(query = "") {
   const params = new URLSearchParams({ apiKey: CONFIG.API_KEY });
 
-  // No ipAddress param: ipify returns data for the requester's own IP
-  if (query) params.set("ipAddress", query);
+  // Empty query: ipify returns the requester's own IP
+  if (query) params.set(isIp(query) ? "ipAddress" : "domain", query);
 
   const res = await fetch(`${CONFIG.API_URL}?${params}`);
   if (!res.ok) throw new Error(`Request failed (${res.status})`);
@@ -67,3 +74,23 @@ async function init() {
 }
 
 init();
+/* ---------- Search ---------- */
+const form = document.getElementById("search-form");
+const input = document.getElementById("search-input");
+
+async function search(query) {
+  try {
+    const data = await getIpData(query);
+    renderData(data);
+    updateMap(data.location);
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+form.addEventListener("submit", (e) => {
+  e.preventDefault();
+  const query = input.value.trim();
+  if (!query) return; // empty-search feedback comes in Commit 11
+  search(query);
+});
