@@ -18,3 +18,27 @@ const markerIcon = L.icon({
 });
 
 const marker = L.marker(DEFAULT_COORDS, { icon: markerIcon }).addTo(map);
+/* ---------- API ---------- */
+async function getIpData(query = "") {
+  const params = new URLSearchParams({ apiKey: CONFIG.API_KEY });
+
+  // No ipAddress param: ipify returns data for the requester's own IP
+  if (query) params.set("ipAddress", query);
+
+  const res = await fetch(`${CONFIG.API_URL}?${params}`);
+  if (!res.ok) throw new Error(`Request failed (${res.status})`);
+
+  return res.json();
+}
+
+/* ---------- Init ---------- */
+async function init() {
+  try {
+    const data = await getIpData();
+    console.log(data); // inspect the shape; rendered in Commit 9
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+init();
