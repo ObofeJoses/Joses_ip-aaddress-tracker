@@ -136,3 +136,48 @@ input {
     font-size: 2rem;
   }
 }
+
+/* ---------- Info card ---------- */
+.info-card {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translate(-50%, 50%); /* straddles header and map */
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  width: calc(100% - 48px);
+  max-width: 1110px;
+  padding: 37px 0;
+  background: var(--white);
+  color: var(--very-dark-gray);
+  border-radius: var(--radius);
+  box-shadow: 0 50px 50px -25px rgba(0, 0, 0, 0.1);
+}
+
+.info-group {
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+  padding: 0 32px;
+  min-width: 0;
+}
+
+/* vertical dividers */
+.info-group + .info-group {
+  border-left: 1px solid hsl(0, 0%, 85%);
+}
+
+.info-label {
+  font-size: 0.75rem;
+  font-weight: var(--fw-bold);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--dark-gray);
+}
+
+.info-value {
+  font-size: 1.625rem;
+  font-weight: var(--fw-medium);
+  line-height: 1.15;
+  overflow-wrap: anywhere;
+}
