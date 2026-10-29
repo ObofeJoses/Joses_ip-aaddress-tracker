@@ -45,3 +45,94 @@ input {
   flex: 1;
 }
 
+/* ---------- Header ---------- */
+.header-container {
+  position: relative;
+  z-index: 1000; /* above Leaflet panes */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: var(--header-height);
+  padding: 26px 24px 0;
+  background: url("../images/pattern-bg-mobile.png") center / cover no-repeat,
+    hsl(245, 50%, 45%);
+  color: var(--white);
+}
+
+.title {
+  margin-bottom: 24px;
+  font-size: 1.625rem;
+  font-weight: var(--fw-medium);
+  text-align: center;
+}
+
+/* ---------- Search ---------- */
+.search-form {
+  display: flex;
+  width: 100%;
+  max-width: 555px;
+}
+
+.search-input {
+  flex: 1;
+  min-width: 0;
+  padding: 16px 24px;
+  font-size: 1.125rem;
+  color: var(--very-dark-gray);
+  background: var(--white);
+  border-radius: var(--radius) 0 0 var(--radius);
+  cursor: pointer;
+}
+
+.search-input::placeholder {
+  color: var(--dark-gray);
+}
+
+.search-input:hover {
+  cursor: text;
+}
+
+.search-input:focus-visible {
+  outline: 2px solid var(--very-dark-gray);
+  outline-offset: -2px;
+}
+
+.search-btn {
+  display: grid;
+  place-items: center;
+  width: 58px;
+  background: #000;
+  border-radius: 0 var(--radius) var(--radius) 0;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.search-btn:hover {
+  background: var(--very-dark-gray); /* hover state per active-states design */
+}
+
+.search-btn:focus-visible {
+  outline: 2px solid var(--white);
+  outline-offset: 2px;
+}
+
+/* ---------- Error ---------- */
+.error-msg {
+  margin-top: 12px;
+  font-size: 0.875rem;
+  color: #ffd6d6;
+  text-align: center;
+}
+
+/* ---------- Desktop header ---------- */
+@media (min-width: 768px) {
+  .header-container {
+    padding-top: 32px;
+    background-image: url("../images/pattern-bg-desktop.png");
+  }
+
+  .title {
+    margin-bottom: 30px;
+    font-size: 2rem;
+  }
+}
