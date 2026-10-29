@@ -1,0 +1,47 @@
+/* ---------- Tokens ---------- */
+:root {
+  --very-dark-gray: hsl(0, 0%, 17%);
+  --dark-gray: hsl(0, 0%, 58%);
+  --white: #fff;
+
+  --ff: "Rubik", sans-serif;
+  --fw-regular: 400;
+  --fw-medium: 500;
+  --fw-bold: 700;
+
+  --radius: 15px;
+  --header-height: 280px;
+}
+
+/* ---------- Reset ---------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--ff);
+  font-size: 18px;
+  color: var(--very-dark-gray);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+button,
+input {
+  font: inherit;
+  border: 0;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+#map {
+  flex: 1;
+}
+
