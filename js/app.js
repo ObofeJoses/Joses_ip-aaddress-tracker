@@ -31,11 +31,36 @@ async function getIpData(query = "") {
   return res.json();
 }
 
+
+/* ---------- Render ---------- */
+const els = {
+  ip: document.getElementById("ip-address"),
+  location: document.getElementById("location"),
+  timezone: document.getElementById("timezone"),
+  isp: document.getElementById("isp"),
+};
+
+function renderData({ ip, location, isp }) {
+  const place = [location.city, location.region].filter(Boolean).join(", ");
+  const postal = location.postalCode ? ` ${location.postalCode}` : "";
+
+  els.ip.textContent = ip;
+  els.location.textContent = `${place}${postal}` || location.country;
+  els.timezone.textContent = location.timezone ? `UTC ${location.timezone}` : "–";
+  els.isp.textContent = isp || "–";
+}
+
+function updateMap({ lat, lng }) {
+  map.setView([lat, lng], 13);
+  marker.setLatLng([lat, lng]);
+}
 /* ---------- Init ---------- */
+
 async function init() {
   try {
     const data = await getIpData();
-    console.log(data); // inspect the shape; rendered in Commit 9
+    renderData(data);
+    updateMap(data.location);
   } catch (err) {
     console.error(err);
   }
